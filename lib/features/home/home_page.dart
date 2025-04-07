@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kyushoku/components/exception_caught.dart';
-import 'package:kyushoku/components/loader.dart';
+import 'package:kyushoku/components/layouts/exception_caught.dart';
+import 'package:kyushoku/components/layouts/layouts.dart';
+import 'package:kyushoku/components/layouts/loader.dart';
 import 'package:kyushoku/components/meal_card.dart';
-import 'package:kyushoku/fake_data/get_today.dart';
-import 'package:kyushoku/theme/app_colors.dart';
+import 'package:kyushoku/utils/fake_data/get_today.dart';
 import 'package:kyushoku/theme/text%20styles/headers.dart';
 import 'package:kyushoku/theme/text%20styles/sub_headers.dart';
 
@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<AppColors>()!;
+    // final colors = Theme.of(context).extension<AppColors>()!;
     List<Map<String, dynamic>> dishes = dataToday['dishes'] ?? [];
     String diary = dataToday['diary'] ?? "";
     if (isLoading) {
@@ -73,8 +73,7 @@ class _HomePageState extends State<HomePage> {
     if (exceptionCaught) {
       return ExceptionCaught();
     }
-    return Padding(
-      padding: const EdgeInsets.only(top: 25),
+    return Layouts().page(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

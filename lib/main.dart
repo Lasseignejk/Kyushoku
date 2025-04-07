@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kyushoku/layout_wrapper.dart';
+import 'package:kyushoku/components/layouts/main_wrapper.dart';
 import 'package:kyushoku/theme/app_theme.dart';
 
 void main() {

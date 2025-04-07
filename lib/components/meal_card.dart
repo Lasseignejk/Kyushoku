@@ -27,7 +27,7 @@ class _MealCardState extends State<MealCard> {
           child: Container(
             decoration: BoxDecoration(border: Border.all(color: colors.text)),
             width: double.infinity,
-            height: 10,
+            height: 180,
           ),
         ),
         SizedBox(width: 15),
