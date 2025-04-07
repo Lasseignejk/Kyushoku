@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kyushoku/components/loader.dart';
+import 'package:kyushoku/components/meal_card.dart';
 import 'package:kyushoku/theme/app_colors.dart';
+import 'package:kyushoku/theme/text%20styles/headers.dart';
 
 import 'package:kyushoku/theme/text%20styles/paragraphs.dart';
 import 'package:kyushoku/theme/text%20styles/sub_headers.dart';
@@ -34,8 +36,10 @@ class _HomePageState extends State<HomePage> {
     await Future.delayed(Duration(seconds: 2));
     List<Map<String, dynamic>> fakeData = [
       {
-        'name_english': 'Chicken Curry',
-        'name_japanese': 'チキンカレー',
+        'name': {
+          'english': 'Chicken Curry',
+          'japanese': 'チキンカレー',
+        },
         'rating': 5.0,
         'date_added': '03-14-2025',
         'photo': '',
@@ -43,8 +47,7 @@ class _HomePageState extends State<HomePage> {
         'tags': ['tasty', 'lunch', 'main dish']
       },
       {
-        'name_english': 'Shishamo',
-        'name_japanese': 'シシャモ',
+        'name': {'english': 'Shishamo', 'japanese': 'シシャモ'},
         'rating': 0.5,
         'date_added': '03-29-2025',
         'photo': '',
@@ -70,8 +73,33 @@ class _HomePageState extends State<HomePage> {
                 style: SubHeaders.med(context),
                 textAlign: TextAlign.center,
               ))
-            : Column(children: [
-                Text('Home', style: Paragraphs.med(context)),
-              ]);
+            : Padding(
+                padding: const EdgeInsets.only(top: 25),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Today's Menu", style: Headers.large(context)),
+                    SizedBox(height: 20),
+                    ListView.separated(
+                      physics: ScrollPhysics(),
+                      shrinkWrap: true,
+                      separatorBuilder: (context, index) {
+                        return SizedBox(height: 25);
+                      },
+                      itemCount: uploads.length,
+                      itemBuilder: (context, index) {
+                        return MealCard(meal: uploads[index]);
+                      },
+                    ),
+                    // Column(
+                    //   children: uploads.map((upload) {
+                    //     return MealCard(meal: upload);
+                    //   }).toList(),
+                    // ),
+                    SizedBox(height: 20),
+                    Text("Diary", style: Headers.large(context)),
+                  ],
+                ),
+              );
   }
 }
