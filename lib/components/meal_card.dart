@@ -15,6 +15,11 @@ class _MealCardState extends State<MealCard> {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<AppColors>()!;
+    String englishName =
+        widget.meal['name']['english'] ?? 'English name not given';
+    String japaneseName =
+        widget.meal['name']['japanese'] ?? 'Japanese name not given';
+    List<String> mealTags = widget.meal['tags'] ?? [];
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -31,19 +36,19 @@ class _MealCardState extends State<MealCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.meal['name']['english'],
+                englishName,
                 style: Paragraphs.large(context),
               ),
               SizedBox(height: 5),
               Text(
-                widget.meal['name']['japanese'],
+                japaneseName,
                 style: Paragraphs.small(context),
               ),
               SizedBox(height: 10),
               Wrap(
                 spacing: 8, // horizontal space between tags
                 runSpacing: 8, // vertical space between rows
-                children: widget.meal['tags'].map<Widget>((tag) {
+                children: mealTags.map<Widget>((tag) {
                   return Tag(tagText: tag);
                 }).toList(),
               ),
