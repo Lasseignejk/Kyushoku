@@ -12,7 +12,7 @@ class Headers {
     final colors = _getAppColors(context);
     return GoogleFonts.frederickaTheGreat(
       fontSize: 16,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w400,
       color: color ?? colors.text,
     );
   }
@@ -21,7 +21,7 @@ class Headers {
     final colors = _getAppColors(context);
     return GoogleFonts.frederickaTheGreat(
       fontSize: 18,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w400,
       color: color ?? colors.text,
     );
   }
@@ -30,7 +30,7 @@ class Headers {
     final colors = _getAppColors(context);
     return GoogleFonts.frederickaTheGreat(
       fontSize: 20,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w400,
       color: color ?? colors.text,
     );
   }
@@ -39,7 +39,7 @@ class Headers {
     final colors = _getAppColors(context);
     return GoogleFonts.frederickaTheGreat(
       fontSize: 22,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w400,
       color: color ?? colors.text,
     );
   }
@@ -48,7 +48,7 @@ class Headers {
     final colors = _getAppColors(context);
     return GoogleFonts.frederickaTheGreat(
       fontSize: 24,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w400,
       color: color ?? colors.text,
     );
   }
