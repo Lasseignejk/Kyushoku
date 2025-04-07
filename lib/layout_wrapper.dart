@@ -6,6 +6,7 @@ import 'package:kyushoku/views/calendar/calendar_page.dart';
 import 'package:kyushoku/views/favorites/favorites_page.dart';
 import 'package:kyushoku/views/home/home_page.dart';
 import 'package:kyushoku/views/lists/lists_page.dart';
+import 'package:kyushoku/views/settings/settings_page.dart';
 
 class LayoutWrapper extends StatefulWidget {
   const LayoutWrapper({super.key});
@@ -35,12 +36,22 @@ class _LayoutWrapperState extends State<LayoutWrapper> {
         centerTitle: true,
         leading: Padding(
           padding: const EdgeInsets.only(left: 18.0),
-          child: Container(
-            height: 20,
-            width: 20,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: colors.meatRed,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SettingsPage(),
+                ),
+              );
+            },
+            child: Container(
+              height: 20,
+              width: 20,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: colors.meatRed,
+              ),
             ),
           ),
         ),
