@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kyushoku/components/exception_caught.dart';
 import 'package:kyushoku/components/loader.dart';
 import 'package:kyushoku/components/meal_card.dart';
+import 'package:kyushoku/fake_data/get_today.dart';
 import 'package:kyushoku/theme/app_colors.dart';
 import 'package:kyushoku/theme/text%20styles/headers.dart';
-
-import 'package:kyushoku/theme/text%20styles/paragraphs.dart';
 import 'package:kyushoku/theme/text%20styles/sub_headers.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,8 +15,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Map<String, dynamic>> uploads = [];
+  Map<String, dynamic> dataToday = {};
   bool isLoading = false;
+  bool exceptionCaught = false;
 
   @override
   void initState() {
@@ -33,73 +34,74 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       isLoading = true;
     });
-    await Future.delayed(Duration(seconds: 2));
-    List<Map<String, dynamic>> fakeData = [
-      {
-        'name': {
-          'english': 'Chicken Curry',
-          'japanese': 'チキンカレー',
-        },
-        'rating': 5.0,
-        'date_added': '03-14-2025',
-        'photo': '',
-        'is_favorite': true,
-        'tags': ['tasty', 'lunch', 'main dish']
-      },
-      {
-        'name': {'english': 'Shishamo', 'japanese': 'シシャモ'},
-        'rating': 0.5,
-        'date_added': '03-29-2025',
-        'photo': '',
-        'is_favorite': false,
-        'tags': ['never again', 'lunch', 'main dish']
-      },
-    ];
-    setState(() {
-      uploads = fakeData;
-      isLoading = false;
-    });
+    try {
+      await Future.delayed(Duration(seconds: 2));
+      setState(() {
+        dataToday = getTodayData;
+      });
+    } catch (e) {
+      print("ERROR: $e");
+      setState(() {
+        exceptionCaught = true;
+      });
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<AppColors>()!;
-    return isLoading
-        ? Loader()
-        : uploads.isEmpty
-            ? Center(
-                child: Text(
-                "You haven't uploaded anything yet. Press the + button to get started!",
-                style: SubHeaders.med(context),
-                textAlign: TextAlign.center,
-              ))
-            : Padding(
-                padding: const EdgeInsets.only(top: 25),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Today's Menu", style: Headers.large(context)),
-                    SizedBox(height: 20),
-                    ListView.separated(
-                      physics: ScrollPhysics(),
-                      shrinkWrap: true,
-                      separatorBuilder: (context, index) {
-                        return SizedBox(height: 25);
-                      },
-                      itemCount: uploads.length,
-                      itemBuilder: (context, index) {
-                        return MealCard(meal: uploads[index]);
-                      },
-                    ),
-                    // Column(
-                    //   children: uploads.map((upload) {
-                    //     return MealCard(meal: upload);
-                    //   }).toList(),
-                    // ),
-                    SizedBox(height: 20),
-                    Text("Diary", style: Headers.large(context)),
-                  ],
-                ),
-              );
+    List<Map<String, dynamic>> dishes = dataToday['dishes'] ?? [];
+    String diary = dataToday['diary'] ?? "";
+    if (isLoading) {
+      return Loader();
+    }
+
+    if (dataToday.isEmpty) {
+      return Center(
+        child: Text(
+          "You haven't uploaded anything yet. Press the + button to get started!",
+          style: SubHeaders.med(context),
+          textAlign: TextAlign.center,
+        ),
+      );
+    }
+
+    if (exceptionCaught) {
+      return ExceptionCaught();
+    }
+    return Padding(
+      padding: const EdgeInsets.only(top: 25),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Today's Menu", style: Headers.large(context)),
+          SizedBox(height: 15),
+          ListView.separated(
+            physics: ScrollPhysics(),
+            shrinkWrap: true,
+            separatorBuilder: (context, index) {
+              return SizedBox(height: 25);
+            },
+            itemCount: dishes.length,
+            itemBuilder: (context, index) {
+              return MealCard(meal: dishes[index]);
+            },
+          ),
+          // Column(
+          //   children: uploads.map((upload) {
+          //     return MealCard(meal: upload);
+          //   }).toList(),
+          // ),
+          SizedBox(height: 20),
+          Text("Diary", style: Headers.large(context)),
+          SizedBox(height: 15),
+          Text(diary),
+        ],
+      ),
+    );
   }
 }
