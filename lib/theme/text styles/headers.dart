@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kyushoku/theme/app_colors.dart';
 
 class Headers {
@@ -9,7 +10,7 @@ class Headers {
 
   static TextStyle xSmall(BuildContext context, {Color? color}) {
     final colors = _getAppColors(context);
-    return TextStyle(
+    return GoogleFonts.frederickaTheGreat(
       fontSize: 16,
       fontWeight: FontWeight.w700,
       color: color ?? colors.text,
@@ -18,7 +19,7 @@ class Headers {
 
   static TextStyle small(BuildContext context, {Color? color}) {
     final colors = _getAppColors(context);
-    return TextStyle(
+    return GoogleFonts.frederickaTheGreat(
       fontSize: 18,
       fontWeight: FontWeight.w700,
       color: color ?? colors.text,
@@ -27,7 +28,7 @@ class Headers {
 
   static TextStyle med(BuildContext context, {Color? color}) {
     final colors = _getAppColors(context);
-    return TextStyle(
+    return GoogleFonts.frederickaTheGreat(
       fontSize: 20,
       fontWeight: FontWeight.w700,
       color: color ?? colors.text,
@@ -36,7 +37,7 @@ class Headers {
 
   static TextStyle large(BuildContext context, {Color? color}) {
     final colors = _getAppColors(context);
-    return TextStyle(
+    return GoogleFonts.frederickaTheGreat(
       fontSize: 22,
       fontWeight: FontWeight.w700,
       color: color ?? colors.text,
@@ -45,7 +46,7 @@ class Headers {
 
   static TextStyle xLarge(BuildContext context, {Color? color}) {
     final colors = _getAppColors(context);
-    return TextStyle(
+    return GoogleFonts.frederickaTheGreat(
       fontSize: 24,
       fontWeight: FontWeight.w700,
       color: color ?? colors.text,
