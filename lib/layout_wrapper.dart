@@ -62,6 +62,17 @@ class _LayoutWrapperState extends State<LayoutWrapper> {
           ListsPage(),
         ][currentPageIndex],
       ),
+      floatingActionButton: currentPageIndex == 0
+          ? FloatingActionButton(
+              backgroundColor: colors.veggieGreen,
+              foregroundColor: colors.text,
+              shape: CircleBorder(),
+              onPressed: () {
+                print("pressed");
+              },
+              child: Icon(Icons.add),
+            )
+          : Container(),
     );
   }
 }
